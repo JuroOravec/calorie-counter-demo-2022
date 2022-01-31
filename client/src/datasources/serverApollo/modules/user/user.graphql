@@ -1,0 +1,14 @@
+fragment MeUser on User {
+  userId
+  firstName
+  lastName
+  userRoles
+}
+
+query getMeUser {
+  me {
+    user {
+      ...MeUser
+    }
+  }
+}

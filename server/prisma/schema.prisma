@@ -1,0 +1,67 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("SERVER_DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  userId    String @id
+  email     String @unique
+  firstName String
+  lastName  String
+
+  foodEntries  FoodEntry[]
+  userSettings UserSettings?
+  userPassword UserPassword?
+  userRoles    UserRole[]
+}
+
+// Kept as a separate table so we don't fetch it every
+// time that we need user data
+model UserPassword {
+  userId   String @id
+  password String
+
+  user User @relation(fields: [userId], references: [userId])
+}
+
+model UserRole {
+  userRoleId String       @id
+  userId     String
+  role       UserRoleType
+
+  user User @relation(fields: [userId], references: [userId])
+
+  @@unique([userId, role])
+}
+
+model UserSettings {
+  userSettingsId     String @id
+  userId             String @unique
+  caloriesLimitDaily Int
+  priceLimitMonthly  Int
+
+  user User @relation(fields: [userId], references: [userId])
+
+  @@unique([userSettingsId, userId])
+}
+
+model FoodEntry {
+  foodEntryId String   @id
+  userId      String
+  name        String
+  date        DateTime
+  calories    Int
+  price       Int?
+
+  user User @relation(fields: [userId], references: [userId])
+
+  @@unique([foodEntryId, userId])
+}
+
+enum UserRoleType {
+  ADMIN
+}

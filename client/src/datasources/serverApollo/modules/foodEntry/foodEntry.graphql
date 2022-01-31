@@ -1,0 +1,90 @@
+fragment MeFoodEntry on FoodEntry {
+  foodEntryId
+  name
+  date
+  calories
+  price
+}
+
+fragment AdminFoodEntry on FoodEntry {
+  foodEntryId
+  name
+  date
+  calories
+  price
+  user {
+    userId
+    firstName
+    lastName
+  }
+}
+
+query getMeFoodEntries {
+  me {
+    foodEntries {
+      ...MeFoodEntry
+    }
+  }
+}
+
+mutation createMeFoodEntry($foodEntry: FoodEntryCreateInput!) {
+  me {
+    createFoodEntry(foodEntry: $foodEntry) {
+      ...MeFoodEntry
+    }
+  }
+}
+
+mutation updateMeFoodEntry($foodEntry: FoodEntryUpdateInput!) {
+  me {
+    updateFoodEntry(foodEntry: $foodEntry) {
+      ...MeFoodEntry
+    }
+  }
+}
+
+mutation deleteMeFoodEntry($foodEntryId: String!) {
+  me {
+    deleteFoodEntry(foodEntryId: $foodEntryId) {
+      foodEntryId
+    }
+  }
+}
+
+query getAdminFoodEntries {
+  admin {
+    foodEntries {
+      ...AdminFoodEntry
+    }
+  }
+}
+
+mutation createAdminFoodEntry(
+  $userId: String!
+  $foodEntry: FoodEntryCreateInput!
+) {
+  admin {
+    createFoodEntry(userId: $userId, foodEntry: $foodEntry) {
+      ...AdminFoodEntry
+    }
+  }
+}
+
+mutation updateAdminFoodEntry(
+  $userId: String!
+  $foodEntry: FoodEntryUpdateInput!
+) {
+  admin {
+    updateFoodEntry(userId: $userId, foodEntry: $foodEntry) {
+      ...AdminFoodEntry
+    }
+  }
+}
+
+mutation deleteAdminFoodEntry($userId: String!, $foodEntryId: String!) {
+  admin {
+    deleteFoodEntry(userId: $userId, foodEntryId: $foodEntryId) {
+      foodEntryId
+    }
+  }
+}

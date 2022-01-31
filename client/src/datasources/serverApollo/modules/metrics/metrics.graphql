@@ -1,0 +1,12 @@
+query getAdminFoodEntryMetrics {
+  admin {
+    metrics {
+      foodEntry {
+        numOfEntriesThisWeek
+        numOfEntriesLastWeek
+        avgOfCaloriesPerUserThisWeek
+        avgOfCaloriesPerUserLastWeek
+      }
+    }
+  }
+}

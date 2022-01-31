@@ -1,0 +1,24 @@
+fragment MeUserSettings on UserSettings {
+  userId
+  caloriesLimitDaily
+  priceLimitMonthly
+}
+
+query getMeUserSettings {
+  me {
+    user {
+      userId
+      userSettings {
+        ...MeUserSettings
+      }
+    }
+  }
+}
+
+mutation updateMeUserSettings($userSettings: UserSettingsUpdateInput!) {
+  me {
+    updateUserSettings(userSettings: $userSettings) {
+      ...MeUserSettings
+    }
+  }
+}

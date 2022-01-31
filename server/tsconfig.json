@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "lib": ["esnext", "dom"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "rootDir": "src",
+    "outDir": "dist",
+    "target": "ESNext",
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "sourceMap": false,
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "suppressImplicitAnyIndexErrors": true,
+    // Make declaration files available to ts-node
+    // See https://github.com/TypeStrong/ts-node/issues/782#issuecomment-675325043
+    "typeRoots": [
+      "types",
+      "node_modules/@types"
+    ],
+  },
+  "ts-node": {
+    "files": true,
+    // See https://typestrong.org/ts-node/docs/paths/
+    "require": ["tsconfig-paths/register"]
+  },
+  "include": ["src/**/*", "playground.ts"],
+  "exclude": ["node_modules", "dist"]
+}
